@@ -1,5 +1,5 @@
 <?php 
-    header('Content-Type: application/json');
+    //header('Content-Type: application/json');
     include_once "./condition.php";
 
     $sql = "DELETE from test_1 where id=?";
