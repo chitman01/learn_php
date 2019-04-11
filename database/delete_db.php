@@ -4,7 +4,7 @@
 
     $sql = "DELETE from test_1 where id=?";
 
-    $params =array($_POST["txt_id"]);
+    $params =array($_POST["id"]);
     
     $stmt = $conn->prepare($sql);
     $stmt->execute($params);
@@ -19,5 +19,4 @@
     }
     $conn = null;
 
-/*
 ?>

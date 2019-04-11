@@ -14,10 +14,41 @@
 		$(document).ready(function(){
 			$("#btn1").click(function(){
 				$("#div1").load('./add.php')
+				event.preventDefault();
+				$(this).parent("td").parent("tr").fadeOut();
 			});
 		});
-	</script>
 
+		$(document).ready(function(){
+		$(".delItem").click(function(){
+			event.preventDefault();
+			var idMember=$(this).attr("href");
+			idMember=idMember.replace("#","");
+			$(this).parent("td").parent("tr").fadeOut();	//hide
+			$.post("./database/delete_db.php",
+			{
+			id: idMember
+			},
+			function(data,status){
+			alert("Data: " + data + "\nStatus: " + status);
+			});
+		});
+		});
+
+		$(document).ready(function(){
+		$(".editItem").click(function(){
+			event.preventDefault();
+			var idMember=$(this).attr("href");
+			idMember=idMember.replace("#","");
+			$.post("edit_db_01.php",{
+				id: idMember
+				},
+			function(data,status){
+				alert("Data: " + data + "\nStatus: " + status);
+				});
+		});
+		});
+	</script>
 
 </head>
 <body>
@@ -45,8 +76,7 @@
 				<th width="200"> <div align="center">Option </div></th>
 			</tr>
 		<?php
-		while($result = $stmt->fetch( PDO::FETCH_ASSOC ))
-		{	
+		while($result = $stmt->fetch( PDO::FETCH_ASSOC )){	
 		?>
 			<tr>
 				<td><div name="txtid" id="txtid" align="center"><?php echo $result["id"];?></div></td>
@@ -54,7 +84,9 @@
 				<td><div align="center"><?php echo $result["lname"];?></div></td>
 				<td><div align="center"><?php echo $result["email"];?></div></td>
 				<td><div align="center"><?php echo $result["t_number"];?></div></td>
-				<td><div align="center"><input type="button" name="btn_delete" id="btn_delete" value="delete"></div></td>
+				<td width="45" height="20" align="center">
+					<a href="#<?=$result['id']?>" class="editItem">edit</a>
+					<a href="#<?=$result['id']?>" class="delItem">delete</a></td>
 			</tr>
 			<!--delete	 https://www.ninenik.com/%E0%B8%81%E0%B8%B2%E0%B8%A3%E0%B9%80%E0%B8%9E%E0%B8%B4%E0%B9%88%E0%B8%A1_%E0%B8%A5%E0%B8%9A_%E0%B9%81%E0%B8%81%E0%B9%89%E0%B9%84%E0%B8%82_%E0%B9%81%E0%B8%9A%E0%B9%88%E0%B8%87%E0%B8%AB%E0%B8%99%E0%B9%89%E0%B8%B2_%E0%B8%82%E0%B9%89%E0%B8%AD%E0%B8%A1%E0%B8%B9%E0%B8%A5_%E0%B8%94%E0%B9%89%E0%B8%A7%E0%B8%A2_jquery_ajax_%E0%B8%AD%E0%B8%A2%E0%B9%88%E0%B8%B2%E0%B8%87%E0%B8%87%E0%B9%88%E0%B8%B2%E0%B8%A2-372.html 
 			post 	https://www.w3schools.com/jquery/jquery_ajax_get_post.asp
