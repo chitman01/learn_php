@@ -43,6 +43,7 @@
 		$(document).ready(function(){
 			$(document).on('click','a[data-role=update]',function(){
 				//alert($(this).data('id'))
+				//alert($(this).data('firstName'))
 				var  id = $(this).data('id');
 				var  firstName = $('#'+id).children('td[data-target=firstName]').text();
 				var  lastName = $('#'+id).children('td[data-target=lastName]').text();
@@ -53,9 +54,26 @@
 				$('#lastName').val(lastName);
 				$('#email').val(email);
 				$('#t_number').val(t_number);
-				$('#myModal').val('toggle');
+				$('#userId').val(id);
+				$('#myModal').modal('toggle');
 			})
 		});
+		$('#save').click(function(){
+			var id = $('#userId').val();
+			var firstName = $('firstName').val();
+			var lastName = $('#lastName').val();
+			var email = $('#email').val();
+			var t_number = $('#t_number').val();
+
+			$.ajax({
+				url		:	'',
+				method	:	'post';
+				data 	:	{firstName : firstName , lastName : lastName , email : email , id : id},
+				success : function(response) {
+								console.log(response);
+							}
+			})
+		})
 	</script>
 
 </head>
@@ -115,7 +133,7 @@
 					<div class="modal-body">
 						<div class="form-group">
 							<label>ID</label>
-							<input type="text" id="id" class="form-control">
+							<input type="hidden" id="id" class="form-control">
 						</div>
 						<div class="form-group">
 							<label>FistName</label>
@@ -151,7 +169,9 @@
 		</table>
 	</form>
 	<button type="button" class="btn btn-primary" data-toggle="modal" data-target="#myModal">Update Database</button>
-		<!-- https://www.youtube.com/watch?v=aujNp92p0Uc -->
+		<!-- https://www.youtube.com/watch?v=aujNp92p0Uc 
+			http://developer-zone.000webhostapp.com/2017/09/update-data-using-jquery-ajax-php-and-mysql
+		-->
 
 
 	<br>
