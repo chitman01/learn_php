@@ -1,28 +1,40 @@
-<?php
-  include_once "./database/condition.php";
+<html>
+<head>
+<title>ThaiCreate.Com jQuery Tutorials</title>
+<link rel="stylesheet" href="http://code.jquery.com/ui/1.10.3/themes/smoothness/jquery-ui.css" />
+<script src="http://code.jquery.com/jquery-1.9.1.js"></script>
+<script src="http://code.jquery.com/ui/1.10.3/jquery-ui.js"></script>
+<link rel="stylesheet" href="/resources/demos/style.css" />
 
-  $sql = "SELECT * FROM test_1";
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+<script type="text/javascript">
+$(document).ready(function(){
+
+	$("#btn1").click(function(){
+
+			$.post("./database/edit_db.php", { 
+			data1: $("#txt1").val(), 
+			data2: $("#txt2").val()}, 
+				function(result){
+					$("#div1").html(result);
+				}
+			);
+
+		});
+	});
+</script>
+
+</head>
+<body>
+<?php
+	include_once "./database/condition.php";
+	$sql = "SELECT * FROM test_1";
     
 	$stmt = $conn->prepare($sql);
 	$stmt->execute();
 ?>
-<!DOCTYPE html>
-<html lang="en">
-<head>
-  <title>Ajax Update</title>
-  <meta charset="utf-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
-  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
-  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
-
-  <link rel="stylesheet" href="http://code.jquery.com/ui/1.10.3/themes/smoothness/jquery-ui.css" />
-	<script src="http://code.jquery.com/jquery-1.9.1.js"></script>
-	<script src="http://code.jquery.com/ui/1.10.3/jquery-ui.js"></script>
-	<link rel="stylesheet" href="/resources/demos/style.css" />
-</head>
-<body>
-
 
 <div align="center">
 	<form action="" name="Main" id="Main" method="post">
@@ -95,48 +107,10 @@
 	</div>
 <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#myModal">Update Database</button>
 
+<input type="text" id="txt1">
+<input type="text" id="txt2">
+<div id="div1"></div>
+<input type="button" id="btn1" value="Load">
+
 </body>
-
-<script>
-		$(document).ready(function(){
-			
-			$(document).on('click','a[data-role="update"]',function(){
-				var id = $(this).data('id');
-				alert(id);
-				$.post('./database/edit.db.php',
-				{
-					id : id
-				},
-				function (data,status){
-					alert("Data: " + data + "\nStatus: " + status);
-				});
-				
-			});
-			
-		});
-
-		/*
-			$(document).on('click','a[data-role="update"]',function(){
-				var id = $(this).data('id');
-				var fname  = $('#'+id).siblings('td[data-target=fname]').text();
-				var lname  = $('#'+id).children('td[data-target=lname]').text();
-				var email  = $('#'+id).children('td[data-target=email]').text();
-				var t_number  = $('#'+id).children('td[data-target=t_number]').text();
-
-				$('#fname').val(fname);
-				$('#lname').val(lname);
-				$('#email').val(email);
-				$('#t_number').val(t_number);
-				$('#userId').val(userId);
-				//$('#myModal').modal('toggle');
-				alert(id);
-				alert(fname);
-				alert(lname);
-			})
-			*/
-	</script>
-	
-
 </html>
-
-
